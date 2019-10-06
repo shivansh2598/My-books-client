@@ -7,10 +7,21 @@ import {
     EDIT_BOOK_SUCCESS,
     EDIT_BOOK_ERROR,
     FETCH_BOOKS_ERROR,
-    FETCH_BOOKS_SUCCES,
+    FETCH_BOOKS_SUCCESS,
     FETCH_BOOKS_LOADING
 } from './types'
 
-export const fetchBook = () => {
-    debugger;
+import { books } from '../data'
+
+export const fetchBookSuccess = (data) => {
+    return {
+        type: FETCH_BOOKS_SUCCESS,
+        payload: data
+    }
+}
+
+export const fetchBooks = () => {
+    return (dispatch) => {
+        dispatch(fetchBookSuccess(books))
+    }
 }

@@ -1,6 +1,7 @@
 import React , {Component} from 'react'
 import { books } from '../data'
 import Book from '../components/Book'
+import { connect } from 'react-redux'
 
 class Books extends Component {
     constructor(props)
@@ -23,7 +24,7 @@ class Books extends Component {
                     </thead>
                     <tbody>
                         {
-                            books.map((book)=>{
+                            this.props.books.map((book)=>{
                                 return (
                                     <Book key={book.id} book={book}/>
                                 )
@@ -36,4 +37,10 @@ class Books extends Component {
     }
 }
 
-export default Books;
+const mapStateToProps = (state) => {
+    return {
+        books: state.booksData.books || [],
+    }
+}
+
+export default connect(mapStateToProps, null)(Books);
