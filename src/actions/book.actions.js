@@ -12,6 +12,10 @@ import {
 } from './types'
 
 import { books } from '../data'
+import axios from 'axios';
+import { normalize } from 'upath';
+
+const url = "http://localhost:8000/books"
 
 export const fetchBookSuccess = (data) => {
     return {
@@ -20,8 +24,43 @@ export const fetchBookSuccess = (data) => {
     }
 }
 
+export const fetchBooksLoading = (data) => {
+    return {
+        type: FETCH_BOOKS_LOADING,
+        payload: data
+    }
+}
+
+const normalizeResponse = (data) =>{
+    const arr = data.map(item => {
+        const keys = Object.keys(item);
+        keys.forEach(k => {
+            item[k.toLowerCase()] = item[k];
+            delete item[k];
+        });
+
+        return item;
+    })
+
+    return arr;
+}
+
 export const fetchBooks = () => {
+    let isLoading = true;
+    
     return (dispatch) => {
-        dispatch(fetchBookSuccess(books))
+        dispatch(fetchBooksLoading(isLoading))
+        return axios.get(url)
+        .then((response)=>{
+            const data = normalizeResponse(response.data);
+            dispatch(fetchBookSuccess(data));
+            isLoading = false;
+            dispatch(fetchBooksLoading(isLoading))
+        })
+        .catch((error)=>{
+            console.log(error);
+            isLoading = false;
+            dispatch(fetchBooksLoading(isLoading))
+        })
     }
 }
