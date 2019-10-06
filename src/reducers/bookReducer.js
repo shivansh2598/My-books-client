@@ -17,6 +17,11 @@ const defaultState = {
     isLoading: false
 }
 
-const bookReducer = (state = default) => {
-
+const bookReducer = (state = defaultState, action ) => {
+    switch(action.type) {
+        default:
+            return state;
+    }
 }
+
+export default bookReducer;
