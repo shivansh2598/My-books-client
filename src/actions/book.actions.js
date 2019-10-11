@@ -68,7 +68,6 @@ export const fetchBooks = () => {
             const errorPayload = {};
             errorPayload['message'] = error.response.data.message;
             errorPayload['status'] = error.response.status;
-
             dispatch(fetchBooksError(errorPayload))
             isLoading = false;
             dispatch(fetchBooksLoading(isLoading))
