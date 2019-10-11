@@ -83,9 +83,9 @@ const mapDispatchToProps = (dispatch) => {
         onAdd: (book) => {
             dispatch(createBook(book));
         }
-    }
+    }createBookSuccess
 }
 
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(CreateBook);
+export default connect(null, mapDispatchToProps)(CreateBook);
