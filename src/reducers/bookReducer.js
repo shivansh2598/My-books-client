@@ -19,6 +19,16 @@ const defaultState = {
 
 const bookReducer = (state = defaultState, action ) => {
     switch(action.type) {
+        case DELETE_BOOK_SUCCESS:
+            const filteredBooks = state.books.filter(book => book.id !== action.payload.id)
+            return { ...state , books : {...filteredBooks} }
+        case DELETE_BOOK_ERROR :
+            return {...state, error: action.payload}
+        case EDIT_BOOK_ERROR:
+            return { ...state, error: action.payload}
+        case EDIT_BOOK_SUCCESS:
+            const updatedBooks = state.books.filter(book => book.id !== action.payload.id)
+            return { ...state, books: [ ...updatedBooks, action.payload ]}
         case ADD_BOOK_ERROR:
             return {...state, error:action.payload}
         case ADD_BOOK_SUCCESS:

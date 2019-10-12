@@ -54,6 +54,11 @@ class CreateBook extends Component {
     render(){
         return(
             <div className="create-book">
+                {this.props.error ?
+                    <div className="alert alert-danger" role="alert">
+                        {this.props.error.message}
+                    </div> : ''                     
+                }
                 <form onSubmit={this.handleSubmit.bind(this)}>
                     <div className="form-group">
                         <input 
@@ -101,7 +106,7 @@ class CreateBook extends Component {
 
 const mapStateToProps = (state) => {
     return {
-
+        error : state.booksData.error
     }
 }
 
@@ -115,4 +120,4 @@ const mapDispatchToProps = (dispatch) => {
 
 
 
-export default connect(null, mapDispatchToProps)(CreateBook);
+export default connect(mapStateToProps, mapDispatchToProps)(CreateBook);
