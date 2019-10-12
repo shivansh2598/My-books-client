@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Book = ({book}) => {
+const Book = ({book, onEdit}) => {
     return (
         <tr>
             <td>{book.id}</td>
@@ -11,7 +11,8 @@ const Book = ({book}) => {
                 <button type="button" className="btn btn-danger">
                     Delete
                 </button>
-                <button type="button" className="btn btn-default">
+                <button type="button" className="btn btn-default"
+                    onClick={()=>onEdit(book)}>
                     Edit
                 </button>
             </td>

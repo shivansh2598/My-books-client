@@ -27,6 +27,30 @@ class CreateBook extends Component {
         })
     }
 
+    handleReset(e) {
+        e.preventDefault();
+        this.setState({
+            title:'',
+            author:'',
+            year:''
+        })
+    }
+
+    componentWillMount() {
+        const props = this.props;
+
+        if (props.location && props.location.state){
+            const book =  props.location.state.book;
+
+            this.setState({
+                id: book.id,
+                title: book.title,
+                author: book.author,
+                year: book.year
+            })
+        }
+    }
+
     render(){
         return(
             <div className="create-book">
@@ -38,6 +62,7 @@ class CreateBook extends Component {
                             name="title"
                             placeholder="Enter Title"
                             onChange={this.handleValueChange.bind(this)}
+                            value={this.state.title}
                         />
                     </div>
                     <div className="form-group">
@@ -47,6 +72,7 @@ class CreateBook extends Component {
                                 name="author"
                                 placeholder="Enter Author"
                                 onChange={this.handleValueChange.bind(this)}
+                                value={this.state.author}
                         />
                     </div>
                     <div className="form-group">
@@ -56,13 +82,14 @@ class CreateBook extends Component {
                                 name="year"
                                 placeholder="Enter Year Published"
                                 onChange={this.handleValueChange.bind(this)}
+                                value={this.state.year}
                         />
                     </div>
                     <div className="form-group">
                         <button type="submit" className="btn btn-primary">
                             Add
                         </button>
-                        <button type="button" className="btn btn-default">
+                        <button type="button" className="btn btn-default" onClick={this.handleReset.bind(this)}>
                             Cancel
                         </button>
                     </div>
@@ -83,7 +110,7 @@ const mapDispatchToProps = (dispatch) => {
         onAdd: (book) => {
             dispatch(createBook(book));
         }
-    }createBookSuccess
+    }
 }
 
 

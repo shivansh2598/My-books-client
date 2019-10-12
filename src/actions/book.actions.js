@@ -53,12 +53,29 @@ export const createBook = (book) => {
                 history.push('/');
             })
             .catch(error => {
-                console.log(error)
+                const errorPayload = {};
+
+            errorPayload['message'] = error.response.message
+            errorPayload['status'] = error.response.status
+            
+            dispatch(createBookError(errorPayload))
             })
         })
         .catch(error => {
-            console.log(error)
+            const errorPayload = {};
+
+            errorPayload['message'] = error.response.message
+            errorPayload['status'] = error.response.status
+            
+            dispatch(createBookError(errorPayload))
         })
+    }
+}
+
+export const createBookError = (data) => {
+    return {
+        type: ADD_BOOK_ERROR,
+        payload:data
     }
 }
 
